@@ -6,7 +6,7 @@ Day 1
 
 2.  IP addresses and open ports
              
-                  Nmap scan report for 192.168.43.XX
+          Nmap scan report for 192.168.43.XX
 		  Host is up (0.00071s latency).
 		  Not shown: 996 closed tcp ports (reset)
 		  PORT     STATE SERVICE
@@ -30,7 +30,7 @@ Day 1
 4. Potential security risk from open ports
 1️⃣ 135/tcp – MSRPC (Microsoft Remote Procedure Call)
 
-Purpose: Allows Windows programs and services to communicate over the network.
+**Purpose: Allows Windows programs and services to communicate over the network.
 
 Potential Security Risks:
 
@@ -38,7 +38,7 @@ Exploitable vulnerabilities (e.g., the old Blaster/WannaCry attacks targeted RPC
 
 Attackers could attempt remote code execution if RPC is unpatched.
 
-Mitigation:
+**Mitigation:
 
 Keep Windows updated with security patches.
 
@@ -46,7 +46,7 @@ Limit exposure to the local network only; don’t expose this port to the Intern
 
 2️⃣ 139/tcp – NetBIOS Session Service
 
-Purpose: Used for Windows file and printer sharing (legacy protocol).
+**Purpose: Used for Windows file and printer sharing (legacy protocol).
 
 Potential Security Risks:
 
@@ -56,7 +56,7 @@ Can leak sensitive info (hostnames, usernames).
 
 Target for malware spreading across local networks.
 
-Mitigation:
+**Mitigation:
 
 Disable NetBIOS if not needed.
 
@@ -64,7 +64,7 @@ Use strong share permissions and firewall rules.
 
 3️⃣ 445/tcp – Microsoft-DS (SMB over TCP)
 
-Purpose: Modern Windows file sharing and Active Directory services.
+**Purpose: Modern Windows file sharing and Active Directory services.
 
 Potential Security Risks:
 
@@ -72,7 +72,7 @@ SMB vulnerabilities are widely exploited (e.g., WannaCry, EternalBlue).
 
 Exposing this port to the Internet is very dangerous.
 
-Mitigation:
+**Mitigation:
 
 Keep systems patched.
 
@@ -82,7 +82,7 @@ Consider disabling SMBv1 entirely.
 
 4️⃣ 5432/tcp – PostgreSQL Database
 
-Purpose: Database server listening for connections.
+**Purpose: Database server listening for connections.
 
 Potential Security Risks:
 
@@ -90,7 +90,7 @@ Open to the network → attackers can try brute-force login.
 
 Misconfigured PostgreSQL may allow unauthorized access or data leakage.
 
-Mitigation:
+**Mitigation:
 
 Ensure strong passwords for all DB users.
 
