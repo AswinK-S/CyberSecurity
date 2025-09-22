@@ -1,0 +1,101 @@
+Day 1
+
+1.local IP range  -
+         192.168.43.0 - 192.168.43.254
+
+
+2.  IP addresses and open ports
+             
+                  Nmap scan report for 192.168.43.XX
+		  Host is up (0.00071s latency).
+		  Not shown: 996 closed tcp ports (reset)
+		  PORT     STATE SERVICE
+		  135/tcp  open  msrpc
+		  139/tcp  open  netbios-ssn
+		  445/tcp  open  microsoft-ds
+		  5432/tcp open  PostgreSQL
+
+3. common services running on this port
+                 
+		   5432 -> PostgreSQL (database)
+		   
+		   | Port | Common Service | Notes                                                   |
+| ---- | -------------- | ------------------------------------------------------- |
+| 135  | MSRPC          | Windows Remote Procedure Call, used by Windows services |
+| 139  | NetBIOS        | Old Windows file/printer sharing protocol               |
+| 445  | Microsoft-DS   | SMB file sharing, network access on Windows             |
+| 5432 | PostgreSQL     | Database server listening for connections               |
+
+
+4. Potential security risk from open ports
+1️⃣ 135/tcp – MSRPC (Microsoft Remote Procedure Call)
+
+Purpose: Allows Windows programs and services to communicate over the network.
+
+Potential Security Risks:
+
+Exploitable vulnerabilities (e.g., the old Blaster/WannaCry attacks targeted RPC).
+
+Attackers could attempt remote code execution if RPC is unpatched.
+
+Mitigation:
+
+Keep Windows updated with security patches.
+
+Limit exposure to the local network only; don’t expose this port to the Internet.
+
+2️⃣ 139/tcp – NetBIOS Session Service
+
+Purpose: Used for Windows file and printer sharing (legacy protocol).
+
+Potential Security Risks:
+
+Can allow unauthorized file access if shares are misconfigured.
+
+Can leak sensitive info (hostnames, usernames).
+
+Target for malware spreading across local networks.
+
+Mitigation:
+
+Disable NetBIOS if not needed.
+
+Use strong share permissions and firewall rules.
+
+3️⃣ 445/tcp – Microsoft-DS (SMB over TCP)
+
+Purpose: Modern Windows file sharing and Active Directory services.
+
+Potential Security Risks:
+
+SMB vulnerabilities are widely exploited (e.g., WannaCry, EternalBlue).
+
+Exposing this port to the Internet is very dangerous.
+
+Mitigation:
+
+Keep systems patched.
+
+Restrict access to trusted networks.
+
+Consider disabling SMBv1 entirely.
+
+4️⃣ 5432/tcp – PostgreSQL Database
+
+Purpose: Database server listening for connections.
+
+Potential Security Risks:
+
+Open to the network → attackers can try brute-force login.
+
+Misconfigured PostgreSQL may allow unauthorized access or data leakage.
+
+Mitigation:
+
+Ensure strong passwords for all DB users.
+
+Allow connections only from trusted hosts.
+
+Consider firewall rules to block unwanted access.
+
+Encrypt database traffic (SSL/TLS).
